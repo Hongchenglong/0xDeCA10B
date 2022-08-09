@@ -10,6 +10,9 @@ class Classifier(ABC, SmartContract):
     """
     A classifier that can take a data sample as input and return a predict classification/label for the data.
     """
+    """
+    一个可以输入数据和返回预测分类/标签的分类器
+    """
 
     @abstractmethod
     def evaluate(self, data, labels) -> float:
@@ -68,6 +71,9 @@ class Classifier(ABC, SmartContract):
     def reset_model(self):
         """
         Re-initialize the model to the same state it was in after `init_model` was called.
+        """
+        """
+        重新初始化模型到调用`init_model`后的状态
         """
         pass
 

@@ -15,5 +15,6 @@ class PerceptronModule(SciKitClassifierModule):
                 learning_rate='optimal',
                 class_weight=class_weight,
                 # Don't really care about tol, just setting it to remove a warning.
+                # 不要在意tol，设置它是为了移除warning
                 tol=1e-3,
                 penalty=None))

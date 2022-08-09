@@ -21,11 +21,15 @@ from decai.simulation.data.featuremapping.feature_index_mapper import FeatureInd
 
 
 # Purposely not a singleton so that it is easy to get a model that has not been initialized.
+# 故意不是单例，所以可轻松获取未初始化到模型
 @inject
 @dataclass
 class SciKitClassifier(Classifier):
     """
     Classifier for a scikit-learn like model.
+    """
+    """
+    类似sklearn分类器的模型
     """
 
     _logger: Logger
@@ -162,10 +166,14 @@ class SciKitClassifierModule(Module):
     """
     Module to provide SciKit Learn Classifier like models.
     """
+    """
+    提供类sklearn分类器的模块
+    """
 
     _model_initializer: Any
 
     # Purposely not a singleton so that it is easy to get a model that has not been initialized.
+    # 故意不是单例，所以可轻松获取未初始化到模型
     @provider
     def provide_classifier(self, builder: ClassAssistedBuilder[SciKitClassifier]) -> Classifier:
         return builder.build(

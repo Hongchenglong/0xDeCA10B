@@ -16,6 +16,12 @@ class FeatureIndexMapper:
 
     This is mostly made to work with 2D data.
     """
+    """
+    将稀疏矩阵映射到密集矩阵
+    因为一些分类器在稀疏矩阵上表现不好
+    
+    这主要应用于2维数据
+    """
 
     def map(self, training_data, testing_data) -> Tuple[np.ndarray, np.ndarray, Optional[FeatureIndexMapping]]:
         if isinstance(training_data, np.ndarray):
