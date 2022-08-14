@@ -1,8 +1,13 @@
 import os
 import sys
 from typing import Optional
-
 from injector import Injector
+
+# For `bokeh serve`.
+# Bokeh is a Python library for creating interactive visualizations for modern web browsers.
+# It helps you build beautiful graphics, ranging from simple plots to complex dashboards with streaming datasets.
+# With Bokeh, you can create JavaScript-powered visualizations without writing any JavaScript yourself.
+sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 
 from decai.simulation.contract.classification.perceptron import PerceptronModule
 from decai.simulation.contract.collab_trainer import DefaultCollaborativeTrainerModule
@@ -10,9 +15,6 @@ from decai.simulation.contract.incentive.stakeable import StakeableImModule
 from decai.simulation.data.imdb_data_loader import ImdbDataModule
 from decai.simulation.logging_module import LoggingModule
 from decai.simulation.simulate import Agent, Simulator
-
-# For `bokeh serve`.
-sys.path.append(os.path.join(os.path.dirname(__file__), '../..'))
 
 num_words = 1000
 train_size: Optional[int] = None
@@ -82,5 +84,6 @@ def main():
 
 
 # Run with `bokeh serve PATH`.
-if __name__.startswith('bk_script_'):
+# if __name__.startswith('bk_script_'):
+if __name__ == '__main__':
     main()
