@@ -195,6 +195,7 @@ class Simulator(object):
                       line_width=2,
                       source=source,
                       color=color,
+            # todo BokehDeprecationWarning: 'legend' keyword is deprecated, use explicit 'legend_label', 'legend_field', or 'legend_group' keywords instead
                       legend=f"{agent.address} Balance")
 
         plot.legend.location = 'top_left'
@@ -208,6 +209,7 @@ class Simulator(object):
 
         acc_source = ColumnDataSource(dict(t=[], a=[]))
         if baseline_accuracy is not None:
+            # todo BokehDeprecationWarning: 'legend' keyword is deprecated, use explicit 'legend_label', 'legend_field', or 'legend_group' keywords instead
             plot.ray(x=[0], y=[baseline_accuracy * 100], length=0, angle=0, line_width=2,
                      legend=f"Accuracy when trained with all data: {baseline_accuracy * 100:0.1f}%")
         plot.line(x='t', y='a',
