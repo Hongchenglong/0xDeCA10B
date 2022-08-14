@@ -10,6 +10,9 @@ class IncentiveMechanism(ABC, SmartContract):
     """
     Defines incentives for others to contribute "good" quality data.
     """
+    """
+    定义为其他人贡献good质量数据的激励
+    """
 
     def __init__(self, refund_time_s=math.inf, any_address_claim_wait_time_s=math.inf):
         super().__init__()
@@ -38,6 +41,12 @@ class IncentiveMechanism(ABC, SmartContract):
         :param sender: The address of the one calling prediction.
         :param value: The amount sent with the request to call prediction.
         """
+        """
+        与共享数据的人分享value
+        
+        :param sender: 调用预测的人的地址
+        :param value: 调用预测的请求的发送数量
+        """
         pass
 
     @abstractmethod
@@ -53,6 +62,19 @@ class IncentiveMechanism(ABC, SmartContract):
         :return: tuple
             The cost required to add new data.
             `True` if the model should be updated, `False` otherwise.
+        """
+        """
+        决定添加数据的请求是否是可接受的
+        
+        :param contributor_address: 尝试添加数据的人的地址
+        :param msg_value: 和初始交易一起发送去添加数据的值
+        :param data: 模型的一个训练样本
+        :param classification: 数据的标签
+        :return: tuple
+            The cost required to add new data.
+            添加新数据需要的花费
+            `True` if the model should be updated, `False` otherwise.
+            如果模型上传返回True
         """
         pass
 
@@ -71,6 +93,19 @@ class IncentiveMechanism(ABC, SmartContract):
             or a callable with no parameters to lazily get the prediction of the model on the data.
         :return: The amount to refund to `submitter`.
         """
+        """
+        通知正在尝试退还
+        
+        :param submitter: 尝试退还的人的地址
+        :param stored_data: 正在尝试退款的数据
+        :param claimable_amount: 这次退款可以申请的数量
+        :param claimed_by_submitter: 如果提交者已经声明了数据返回true
+        :param prediction: The current prediction of the model for data
+            or a callable with no parameters to lazily get the prediction of the model on the data.
+            
+            目前模型预测 或 无参回调懒加载去预测模型
+        :return: The amount to refund to `submitter`.
+        """
         pass
 
     @abstractmethod
@@ -85,5 +120,15 @@ class IncentiveMechanism(ABC, SmartContract):
         :param prediction: The current prediction of the model for data
             or a callable with no parameters to lazily get the prediction of the model on the data.
         :return: The amount to reward to `reporter`.
+        """
+        """
+        通知 数据被报告为是坏的还是旧的
+
+        :param reporter: 报告数据的地址
+        :param stored_data: 被报告的数据
+        :param claimed_by_reporter: True if the data has already been claimed by `reporter`, otherwise false.
+        :param prediction: The current prediction of the model for data
+            or a callable with no parameters to lazily get the prediction of the model on the data.
+        :return: 奖励给报告者的数量
         """
         pass
