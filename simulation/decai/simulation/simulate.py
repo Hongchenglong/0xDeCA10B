@@ -35,6 +35,9 @@ class Agent:
     """
     A user to run in the simulator.
     """
+    """
+    一个运行在模拟器上的用户。
+    """
     address: Address
     start_balance: float
     mean_deposit: float
@@ -54,6 +57,7 @@ class Agent:
 
     def get_next_deposit(self) -> int:
         while True:
+            # 正态分布(均值，标准差)
             result = int(random.normalvariate(self.mean_deposit, self.stdev_deposit))
             if result > 0:
                 return result
@@ -89,6 +93,12 @@ class Simulator(object):
         self._warned_about_saving_plot = False
 
     def save_plot_image(self, plot, plot_save_path):
+        """保存图片，失败则记录日志
+
+        Args:
+            plot (_type_): _description_
+            plot_save_path (string): 保存路径
+        """
         try:
             export_png(plot, filename=plot_save_path)
         except Exception as e:
@@ -129,10 +139,24 @@ class Simulator(object):
         :param test_size: The amount of test data to use.
         :param filename_indicator: Path of the filename to create for the run.
         """
+        """
+        模拟
+
+        :param agents: 代理将与数据交互
+        :param baseline_accuracy: 模型的基线精度。通常在使用所有数据训练模型时隐藏准确率
+        :param init_train_data_portion: 模型初始训练的部分。 Must be [0,1].
+        :param pm_test_sets: 预测市场激励机制的测试集
+        :param accuracy_plot_wait_s: 绘制准确率所等待的时间。
+        :param train_size: 训练数据所使用的数量.
+        :param test_size: The amount of test data to use.
+        :param filename_indicator: Path of the filename to create for the run.
+        """
+
 
         assert 0 <= init_train_data_portion <= 1
 
         # Data to save.
+        # 保存数据
         save_data = dict(agents=[asdict(a) for a in agents],
                          baselineAccuracy=baseline_accuracy,
                          initTrainDataPortion=init_train_data_portion,
@@ -147,6 +171,7 @@ class Simulator(object):
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
         # Set up plots.
+        # 设置绘图
         doc: Document = curdoc()
         doc.title = "DeCAI Simulation"
 
@@ -196,7 +221,7 @@ class Simulator(object):
                       source=source,
                       color=color,
             # todo BokehDeprecationWarning: 'legend' keyword is deprecated, use explicit 'legend_label', 'legend_field', or 'legend_group' keywords instead
-                      legend=f"{agent.address} Balance")
+                      legend_label=f"{agent.address} Balance")
 
         plot.legend.location = 'top_left'
         plot.legend.label_text_font_size = '12pt'

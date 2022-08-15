@@ -17,6 +17,7 @@ from decai.simulation.logging_module import LoggingModule
 from decai.simulation.simulate import Agent, Simulator
 
 num_words = 1000
+# 可选类型，等价于 Union[X, None]
 train_size: Optional[int] = None
 if train_size is None:
     init_train_data_portion = 0.08
@@ -26,12 +27,13 @@ else:
 
 def main():
     # Set up the agents that will act in the simulation.
+    # 设置将在模拟起作用的代理
     agents = [
         # Good
         Agent(address="Good",
               start_balance=10_000,
-              mean_deposit=50,
-              stdev_deposit=10,
+              mean_deposit=50,  # 平均保证金
+              stdev_deposit=10,  # 标准保证金
               mean_update_wait_s=10 * 60,
               prob_mistake=0.0001,
               ),
